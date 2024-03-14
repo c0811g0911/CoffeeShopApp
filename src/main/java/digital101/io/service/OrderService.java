@@ -93,6 +93,9 @@ public class OrderService {
 
     public OrderDto placeOrderByCustomer(OrderDto orderDto){
 
+        //TODO: get customerId from token
+        orderDto.setCustomerId(1l);//fake customer id
+
         Long itemId = orderDto.getMenuItemId();
         MenuItem item = menuItemRepository.findById(itemId).orElseThrow(() -> new NotFoundException("Menu Item not found"));
         Shop shop = item.getMenu().getShop();

@@ -7,12 +7,14 @@ import digital101.io.model.MenuItemDto;
 import digital101.io.repos.MenuItemRepository;
 import digital101.io.repos.MenuRepository;
 import digital101.io.repos.OrderRepository;
+import digital101.io.repos.ShopRepository;
 import digital101.io.util.NotFoundException;
 import digital101.io.util.ReferencedWarning;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -22,11 +24,15 @@ public class MenuItemService {
     private final MenuRepository menuRepository;
     private final OrderRepository orderRepository;
 
+    private final ShopRepository shopRepository;
+
     public MenuItemService(final MenuItemRepository menuItemRepository,
+                           final ShopRepository shopRepository,
                            final MenuRepository menuRepository, final OrderRepository orderRepository) {
         this.menuItemRepository = menuItemRepository;
         this.menuRepository = menuRepository;
         this.orderRepository = orderRepository;
+        this.shopRepository = shopRepository;
     }
 
     public List<MenuItemDto> findAll() {
@@ -93,6 +99,12 @@ public class MenuItemService {
             return referencedWarning;
         }
         return null;
+    }
+
+    public List<MenuItemDto> getListItems(Long shopId){
+        var shop = shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException("Shop not found"));
+        return shop.getMenu().getItems().stream().map(item -> mapToDTO(item, new MenuItemDto()))
+                .toList();
     }
 
 }

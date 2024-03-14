@@ -1,0 +1,31 @@
+@url_dev=http://localhost:8080/api/
+
+
+### list all shop
+GET {{url_dev}}/api/customers/
+Content-Type: application/json
+
+
+### list menu item by shop
+GET {{url_dev}}/api/customers/shops/1
+Content-Type: application/json
+
+### place-order
+
+POST {{url_dev}}/api/customers/orders
+Content-Type: application/json
+
+{
+  "quantity": 3,
+  "menuItemId": 1
+}
+
+### existQueue
+
+PUT {{url_dev}}/api/customers/queues/{{1}}
+Content-Type: application/json
+
+{
+  "email": "shophuyjs421@gmail.com",
+  "password":"abc123"
+}

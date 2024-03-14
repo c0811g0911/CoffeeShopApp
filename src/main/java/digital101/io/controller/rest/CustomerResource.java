@@ -1,11 +1,7 @@
 package digital101.io.controller.rest;
 
-import digital101.io.model.CustomerDto;
-import digital101.io.model.OrderDto;
-import digital101.io.model.ShopDto;
-import digital101.io.service.CustomerService;
-import digital101.io.service.OrderService;
-import digital101.io.service.ShopService;
+import digital101.io.model.*;
+import digital101.io.service.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +21,13 @@ public class CustomerResource {
 
     private final OrderService orderService;
 
-    public CustomerResource(final CustomerService customerService, final ShopService shopService, final OrderService orderService) {
+    private final MenuItemService menuItemService;
+
+    public CustomerResource(final CustomerService customerService, final ShopService shopService, final OrderService orderService, final MenuItemService menuItemService) {
         this.customerService = customerService;
         this.shopService = shopService;
         this.orderService = orderService;
+        this.menuItemService = menuItemService;
     }
 
     @PostMapping("/register")
@@ -41,7 +40,12 @@ public class CustomerResource {
         return ResponseEntity.ok(shopService.findAll());
     }
 
-    @PutMapping("/orders")
+    @GetMapping("/shops/{id}/menu-items")
+    public ResponseEntity<List<MenuItemDto>> getMenuListByShop(@PathVariable Long id) {
+        return ResponseEntity.ok(menuItemService.getListItems(id));
+    }
+
+    @PostMapping("/orders")
     public ResponseEntity<OrderDto> placeOrder(
             @RequestBody @Valid OrderDto orderDto) {
         orderDto = orderService.placeOrderByCustomer(orderDto);
