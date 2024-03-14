@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{shops.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{shops.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/shops}" class="btn btn-secondary">[[#{shops.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('shops')}" />
+            <form th:action="${requestUri}" method="post">
+                <input type="submit" th:value="#{shops.edit.headline}" class="btn btn-primary mt-4 mb-4" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='id', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='name')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='description', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='address', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='phone')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='userName', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='password', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='longitude', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='latitude', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='createdAt', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='updatedAt', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='menu', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='shops', field='queue', type='select')}" />
+                <input type="submit" th:value="#{shops.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

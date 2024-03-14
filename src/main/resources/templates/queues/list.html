@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{queues.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{queues.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/queues/add}" class="btn btn-primary ms-2">[[#{queues.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${queues.empty}">[[#{queues.list.empty}]]</div>
+            <div th:if="${!queues.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{queues.id.label}]]</th>
+                            <th scope="col">[[#{queues.name.label}]]</th>
+                            <th scope="col">[[#{queues.maxQueueSize.label}]]</th>
+                            <th scope="col">[[#{queues.createdAt.label}]]</th>
+                            <th scope="col">[[#{queues.updatedAt.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="queues : ${queueses}">
+                            <td>[[${queues.id}]]</td>
+                            <td>[[${queues.name}]]</td>
+                            <td>[[${queues.maxQueueSize}]]</td>
+                            <td>[[${queues.createdAt}]]</td>
+                            <td>[[${queues.updatedAt}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/queues/edit/{id}(id=${queues.id})}" class="btn btn-sm btn-secondary">[[#{queues.list.edit}]]</a>
+                                    <form th:action="@{/queues/delete/{id}(id=${queues.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{queues.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

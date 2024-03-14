@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{shops.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{shops.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/shops/add}" class="btn btn-primary ms-2">[[#{shops.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${shopses.empty}">[[#{shops.list.empty}]]</div>
+            <div th:if="${!shopses.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{shops.id.label}]]</th>
+                            <th scope="col">[[#{shops.name.label}]]</th>
+                            <th scope="col">[[#{shops.phone.label}]]</th>
+                            <th scope="col">[[#{shops.userName.label}]]</th>
+                            <th scope="col">[[#{shops.password.label}]]</th>
+                            <th scope="col">[[#{shops.longitude.label}]]</th>
+                            <th scope="col">[[#{shops.latitude.label}]]</th>
+                            <th scope="col">[[#{shops.createdAt.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="shops : ${shopses}">
+                            <td>[[${shops.id}]]</td>
+                            <td>[[${shops.name}]]</td>
+                            <td>[[${shops.phone}]]</td>
+                            <td>[[${shops.userName}]]</td>
+                            <td>[[${shops.password}]]</td>
+                            <td>[[${shops.longitude}]]</td>
+                            <td>[[${shops.latitude}]]</td>
+                            <td>[[${shops.createdAt}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/shops/edit/{id}(id=${shops.id})}" class="btn btn-sm btn-secondary">[[#{shops.list.edit}]]</a>
+                                    <form th:action="@{/shops/delete/{id}(id=${shops.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{shops.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{customers.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{customers.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/customers/add}" class="btn btn-primary ms-2">[[#{customers.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${customerses.empty}">[[#{customers.list.empty}]]</div>
+            <div th:if="${!customerses.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{customers.id.label}]]</th>
+                            <th scope="col">[[#{customers.name.label}]]</th>
+                            <th scope="col">[[#{customers.phone.label}]]</th>
+                            <th scope="col">[[#{customers.email.label}]]</th>
+                            <th scope="col">[[#{customers.userName.label}]]</th>
+                            <th scope="col">[[#{customers.password.label}]]</th>
+                            <th scope="col">[[#{customers.createdAt.label}]]</th>
+                            <th scope="col">[[#{customers.updatedAt.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="customers : ${customerses}">
+                            <td>[[${customers.id}]]</td>
+                            <td>[[${customers.name}]]</td>
+                            <td>[[${customers.phone}]]</td>
+                            <td>[[${customers.email}]]</td>
+                            <td>[[${customers.userName}]]</td>
+                            <td>[[${customers.password}]]</td>
+                            <td>[[${customers.createdAt}]]</td>
+                            <td>[[${customers.updatedAt}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/customers/edit/{id}(id=${customers.id})}" class="btn btn-sm btn-secondary">[[#{customers.list.edit}]]</a>
+                                    <form th:action="@{/customers/delete/{id}(id=${customers.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{customers.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

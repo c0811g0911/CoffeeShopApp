@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{queues.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{queues.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/queues}" class="btn btn-secondary">[[#{queues.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('queues')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='queues', field='id', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='queues', field='name', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='queues', field='maxQueueSize', required=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='queues', field='createdAt', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='queues', field='updatedAt', inputClass='js-datetimepicker')}" />
+                <input type="submit" th:value="#{queues.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
