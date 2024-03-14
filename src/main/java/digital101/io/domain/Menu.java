@@ -1,16 +1,7 @@
 package digital101.io.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -44,18 +35,19 @@ public class Menu {
     @Column
     private String status;
 
-    @OneToOne(mappedBy = "menu", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id", unique = true)
     private Shop shop;
 
     @OneToMany(mappedBy = "menu")
     private Set<MenuItem> items;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column
     private LocalDateTime updatedAt;
 
 }

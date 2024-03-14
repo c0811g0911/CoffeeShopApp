@@ -6,9 +6,6 @@ import digital101.io.model.ShopDto;
 import digital101.io.service.CustomerService;
 import digital101.io.service.OrderService;
 import digital101.io.service.ShopService;
-import digital101.io.util.ReferencedException;
-import digital101.io.util.ReferencedWarning;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/customers", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomerController {
+public class CustomerResource {
 
     private final CustomerService customerService;
 
@@ -28,7 +25,7 @@ public class CustomerController {
 
     private final OrderService orderService;
 
-    public CustomerController(final CustomerService customerService, final ShopService shopService, final OrderService orderService) {
+    public CustomerResource(final CustomerService customerService, final ShopService shopService, final OrderService orderService) {
         this.customerService = customerService;
         this.shopService = shopService;
         this.orderService = orderService;

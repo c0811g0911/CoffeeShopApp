@@ -52,8 +52,7 @@ public class Shop {
     @Column(nullable = false)
     private Double latitude;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id", unique = true)
+    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
     private Menu menu;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -61,17 +60,17 @@ public class Shop {
     private Queue queue;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column
     private LocalDateTime updatedAt;
 
     @Column(nullable = false)
-    private LocalTime openTime;
+    private String openTime;
 
     @Column(nullable = false)
-    private LocalTime closedTime;
+    private String closedTime;
 
 }

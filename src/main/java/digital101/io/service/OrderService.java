@@ -9,7 +9,6 @@ import digital101.io.repos.QueueRepository;
 import digital101.io.util.NotFoundException;
 import digital101.io.util.OrderExceedException;
 import digital101.io.util.ShopServiceTimeException;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -98,7 +97,11 @@ public class OrderService {
         MenuItem item = menuItemRepository.findById(itemId).orElseThrow(() -> new NotFoundException("Menu Item not found"));
         Shop shop = item.getMenu().getShop();
         LocalTime now = LocalTime.now();
-        if(now.isBefore(shop.getOpenTime()) || now.isAfter(shop.getClosedTime())){
+
+        LocalTime openTime = LocalTime.parse(shop.getOpenTime());
+        LocalTime closedTime = LocalTime.parse(shop.getClosedTime());
+
+        if(now.isBefore(openTime) || now.isAfter(closedTime)){
             throw new ShopServiceTimeException("not in service time");
         }
 

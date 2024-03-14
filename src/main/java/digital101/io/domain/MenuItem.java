@@ -58,11 +58,11 @@ public class MenuItem {
     private Set<Order> orders;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column
     private LocalDateTime updatedAt;
 
 }

@@ -53,9 +53,9 @@ public class ShopDto {
 
 
     @NotNull
-    private LocalTime openTime;
+    private String openTime;
 
     @NotNull
-    private LocalTime closedTime;
+    private String closedTime;
 
 }

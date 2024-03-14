@@ -48,11 +48,11 @@ public class Customer {
     private String password;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "customer")
